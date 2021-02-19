@@ -9,10 +9,9 @@ import UIKit
 import AlamofireImage
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-    
     @IBOutlet weak var tableView: UITableView!
     
-    // creating an array of dictionaries
+    // Create an array of dictionaries to store movies data
     var movies = [[String:Any]]()
 
     override func viewDidLoad() {
@@ -26,16 +25,15 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let request = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 10)
         let session = URLSession(configuration: .default, delegate: nil, delegateQueue: OperationQueue.main)
         let task = session.dataTask(with: request) { (data, response, error) in
+            
            // This will run when the network request returns
            if let error = error {
               print(error.localizedDescription)
            } else if let data = data {
               let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
             
-            // get results from the dataDictionary
+            // Get results from the dataDictionary
             self.movies = dataDictionary["results"] as! [[String:Any]]
-            
-            // hey tableview, reload that data (will call those functions that many times)
             self.tableView.reloadData()
            }
         }
@@ -47,21 +45,23 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        // if cell out of screen and reusable, bring me that, otherwise create a new one
         let cell = tableView.dequeueReusableCell(withIdentifier: "MovieCell") as! MovieCell
+        
+        // Fetch movie title, synopsis and poster from results from the API
         let movie = movies[indexPath.row]
+        
         let title = movie["title"] as! String
         let synopsis = movie["overview"] as! String
+        
         let baseUrl = "https://image.tmdb.org/t/p/w185"
         let posterPath = movie["poster_path"] as! String
         let posterUrl = URL(string: baseUrl + posterPath)
         
+        // Populate each cell with movie title, synopsis and poster
         cell.titleLabel.text = title
         cell.synopsisLabel.text = synopsis
+        
         cell.posterView.af.setImage(withURL: posterUrl!)
-        
-        
         
         return cell
     }
