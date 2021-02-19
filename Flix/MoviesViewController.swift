@@ -10,10 +10,6 @@ import AlamofireImage
 
 class MoviesViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
-    
-    
-    // step 0: make table view in view controller and create an outlet here.
-    // step 1: add Datasource and delegate (fix to create two functions above - moved to bottom)
     @IBOutlet weak var tableView: UITableView!
     
     // creating an array of dictionaries
@@ -22,7 +18,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // real step 3
         tableView.dataSource = self
         tableView.delegate = self
 
@@ -37,27 +32,20 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
            } else if let data = data {
               let dataDictionary = try! JSONSerialization.jsonObject(with: data, options: []) as! [String: Any]
             
-            // get results from the dataDictionary (casting)
+            // get results from the dataDictionary
             self.movies = dataDictionary["results"] as! [[String:Any]]
             
             // hey tableview, reload that data (will call those functions that many times)
             self.tableView.reloadData()
-            
-              // TODO: Get the array of movies
-              // TODO: Store the movies in a property to use elsewhere
-              // TODO: Reload your table view data
-
            }
         }
         task.resume()
     }
-    // step2: number of rows? movies.count
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return movies.count
     }
     
-    // step 3: for this particular row, give me the cell (question mark - swift optionals, err on side of using ! for now)
-    // called 50 times.
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         // if cell out of screen and reusable, bring me that, otherwise create a new one
@@ -77,15 +65,4 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         return cell
     }
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
