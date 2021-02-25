@@ -66,4 +66,19 @@ class MovieGridViewController: UIViewController, UICollectionViewDataSource, UIC
         
         return cell
     }
+    
+    override func prepare(for segue:
+                            UIStoryboardSegue, sender: Any?) { //sender is the cell tapped on
+        
+        // Find the selected movie
+        let cell = sender as! UICollectionViewCell // cell tapped on
+        let indexPath = collectionView.indexPath(for: cell)! // hey tableview, what is the indexpath for that cell
+        let movie = movies[indexPath.item] // access the movies array
+        
+        // Pass the selected movie to the MovieDetailsViewController
+        let gridDetailsViewController = segue.destination as! MovieGridDetailsViewController
+        
+        gridDetailsViewController.movie = movie
+        
+    }
 }
