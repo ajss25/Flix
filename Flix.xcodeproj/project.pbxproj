@@ -130,9 +130,9 @@
 			children = (
 				BFC25F0F25DE69F100F77B43 /* MoviesViewController.swift */,
 				BFE38AD925E7A0E900E723A9 /* MovieDetailsViewController.swift */,
+				BF7C93E025E85B4000CFF77D /* MovieTrailerViewController.swift */,
 				BFE38ADE25E7A85B00E723A9 /* MovieGridViewController.swift */,
 				BF53968525E7C16A0056A7B6 /* MovieGridDetailsViewController.swift */,
-				BF7C93E025E85B4000CFF77D /* MovieTrailerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";

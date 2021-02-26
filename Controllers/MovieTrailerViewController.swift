@@ -6,28 +6,25 @@
 //
 
 import UIKit
+import WebKit
 
-class MovieTrailerViewController: UIViewController {
-    @IBOutlet weak var trailerLabel: UILabel!
-    var movieTitle: String!
+class MovieTrailerViewController: UIViewController, WKUIDelegate {
+
+    var trailerLink: URL!
+    var webView: WKWebView!
     
+    // Receive trailer URL and play trailer modally
+    override func loadView() {
+        let webConfiguration = WKWebViewConfiguration()
+        webView = WKWebView(frame: .zero, configuration: webConfiguration)
+        webView.uiDelegate = self
+        view = webView
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        trailerLabel.text = movieTitle
-
-        // Do any additional setup after loading the view.
+        let URL = trailerLink
+        let request = URLRequest(url: URL!)
+        webView.load(request)
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

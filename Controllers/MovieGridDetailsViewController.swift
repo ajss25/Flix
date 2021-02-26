@@ -14,6 +14,7 @@ class MovieGridDetailsViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var synopsisLabel: UILabel!
     
+    // Store movie data
     var movie: [String:Any]!
     
     override func viewDidLoad() {
